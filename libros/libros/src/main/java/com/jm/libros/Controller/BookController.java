@@ -20,7 +20,7 @@ public class BookController {
 
 
 
-    @GetMapping("/book/{id}")
+    @GetMapping("/bookSearch/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
         Book toSearch = bookService.findByISBN(id);
         return new ResponseEntity<>(toSearch, HttpStatus.OK);

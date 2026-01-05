@@ -27,7 +27,7 @@ public class AuthorController {
         return new ResponseEntity<>(authorService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/{fullname}")
+    @GetMapping("/name/{fullName}")
     public ResponseEntity<Author> findByName(@PathVariable String fullName) {
         return new ResponseEntity<>(authorService.findByFullName(fullName), HttpStatus.OK);
     }
