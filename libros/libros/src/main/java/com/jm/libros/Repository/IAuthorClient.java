@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "authorClient",url="http://localhost:8080")
 public interface IAuthorClient {
 
-    @GetMapping("/authors/{id}")
+    @GetMapping("/author/{id}")
     AuthorDTO getAuthor(@PathVariable Long id);
 }
