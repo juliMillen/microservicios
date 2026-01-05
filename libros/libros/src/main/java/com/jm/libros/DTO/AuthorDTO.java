@@ -1,4 +1,4 @@
-package com.jm.autores.DTO;
+package com.jm.libros.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

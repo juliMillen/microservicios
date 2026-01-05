@@ -1,6 +1,9 @@
 package com.jm.libros.Service;
 
+import com.jm.libros.DTO.AuthorDTO;
+import com.jm.libros.DTO.BookDTO;
 import com.jm.libros.Entity.Book;
+import com.jm.libros.Repository.IAuthorClient;
 import com.jm.libros.Repository.IBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,9 @@ public class BookService {
 
     @Autowired
     private IBookRepository bookRepository;
+
+    @Autowired
+    private IAuthorClient authorClient;
 
 
     public Book findByISBN(Long numISBN){
@@ -26,7 +32,19 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public void saveBook(Book book){
+    public void saveBook(BookDTO dto){
+        List<String> listAuthors = dto.getAuthorsId()
+                .stream()
+                .map( id -> {
+                    AuthorDTO author = authorClient.getAuthor(id);
+                    return author.getFullName() + " " + author.getNationality();
+                }).toList();
+        Book book = new Book();
+        book.setNumISBN(dto.getNumISBN());
+        book.setTitle(dto.getTitle());
+        book.setDescription(dto.getDescription());
+        book.setPublicationDate(dto.getPublicationDate());
+        book.setAuthors(listAuthors);
         bookRepository.save(book);
     }
 

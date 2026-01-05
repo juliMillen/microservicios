@@ -25,6 +25,6 @@ public class Author {
 
     private String nationality;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> listBooks;
+    @ElementCollection
+    private List<Long> listBooks;
 }

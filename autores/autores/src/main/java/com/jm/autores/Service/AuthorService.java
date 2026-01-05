@@ -1,5 +1,6 @@
 package com.jm.autores.Service;
 
+import com.jm.autores.DTO.AuthorDTO;
 import com.jm.autores.Entity.Author;
 import com.jm.autores.Repository.IAuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,22 @@ public class AuthorService {
     private IAuthorRepository authorRepository;
 
 
-    public Author findById(Long id) {
-        return authorRepository.findById(id).orElseThrow(() -> new RuntimeException("The author with id " + id + " was not found"));
+    public AuthorDTO findById(Long id) {
+        Author author = authorRepository.findById(id).orElseThrow(() -> new RuntimeException("Author not found"));
+
+        return new AuthorDTO(
+                author.getId(),
+                author.getFullName(),
+                author.getNationality()
+        );
     }
 
     public List<Author> findAll() {
         return authorRepository.findAll();
+    }
+
+    public Author findByFullName(String fullName) {
+        return authorRepository.findByFullName(fullName);
     }
 
     public Author save(Author author) {

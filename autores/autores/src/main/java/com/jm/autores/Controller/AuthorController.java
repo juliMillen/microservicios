@@ -1,5 +1,6 @@
 package com.jm.autores.Controller;
 
+import com.jm.autores.DTO.AuthorDTO;
 import com.jm.autores.Entity.Author;
 import com.jm.autores.Service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,13 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Author> findById(@PathVariable Long id) {
+    public ResponseEntity<AuthorDTO> getById(@PathVariable Long id) {
         return new ResponseEntity<>(authorService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{fullname}")
+    public ResponseEntity<Author> findByName(@PathVariable String fullName) {
+        return new ResponseEntity<>(authorService.findByFullName(fullName), HttpStatus.OK);
     }
 
     @PostMapping("/create")
